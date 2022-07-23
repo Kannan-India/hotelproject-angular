@@ -1,0 +1,190 @@
+<!-- <h2>App Component</h2>
+<button class="btn btn-primary" (click)="btnClicked()">Hey</button> -->
+<div style="margin-top: 30px"></div>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-6 col-md-6">
+      <!-- register card -->
+      <div class="col-xs-12 col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <div><h6>Register Hotel</h6></div>
+          </div>
+          <div class="card-body">
+            <div class="form-group">
+              <label><h6>Id</h6></label>
+              <input
+                type="text"
+                name="hotelId"
+                class="form-control"
+                style="display: inline"
+                [(ngModel)]="hotel.hotelId"
+              />
+            </div>
+
+            <div class="form-group">
+              <label><h6>Name</h6></label>
+              <input
+                type="text"
+                name="hotelName"
+                class="form-control"
+                [(ngModel)]="hotel.hotelName"
+              />
+            </div>
+
+            <div class="form-group">
+              <label><h6>Price per night</h6></label>
+              <input
+                type="number"
+                name="pricePerNight"
+                step="any"
+                class="form-control"
+                [(ngModel)]="hotel.pricePerNight"
+              />
+            </div>
+
+            <div class="form-group">
+              <label><h6>City</h6></label>
+              <input
+                type="text"
+                name="city"
+                class="form-control"
+                [(ngModel)]="hotel.address.city"
+              />
+            </div>
+
+            <div class="form-group">
+              <label><h6>Country</h6></label>
+              <input
+                type="text"
+                name="country"
+                class="form-control"
+                [(ngModel)]="hotel.address.country"
+              />
+            </div>
+
+            <div class="form-group">
+              <button class="btn btn-block btn-primary" (click)="onRegister()">
+                Register
+              </button>
+
+              <button class="btn btn-block btn-success" (click)="onUpdate()">
+                Update
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- register card end -->
+
+      <!-- review card -->
+      <!-- <div class="col-xs-12 col-md-12" style="margin-top: 20px">
+        <div class="card">
+          <div class="card-header">
+            <div><h6>Review Hotels</h6></div>
+          </div>
+          <div class="card-body">
+            <div class="form-group">
+              <label><h6>User Name</h6></label>
+              <input
+                type="text"
+                class="form-control"
+                name="userName"
+                [(ngModel)]="userName"
+              />
+            </div>
+
+            <div class="form-group">
+              <label><h6>Rating</h6></label>
+              <input
+                type="number"
+                step="any"
+                class="form-control"
+                max="5"
+                name="rating"
+                [(ngModel)]="rating"
+              />
+            </div>
+
+            <div class="form-group">
+              <label><h6>Hotel Id</h6></label>
+              <input
+                type="text"
+                class="form-control"
+                name="hotelIdr"
+                [(ngModel)]="hotelIdr"
+              />
+            </div>
+
+            <div class="form-group">
+              <button class="btn btn-block btn-primary" (click)="onReview()">
+                Submit
+              </button>
+            </div>
+          </div>
+        </div>
+      </div> -->
+      <!-- review card end -->
+    </div>
+
+    <div class="col-xs-6 col-md-6">
+      <div class="row" *ngFor="let hotel of hotels">
+        <div class="col-xs-6 col-md-6" style="margin-bottom: 10px">
+          <div class="card" style="height: 180px">
+            <div class="card-header">
+              <div
+                class="col-xs-10 col-md-10"
+                style="display: inline-block; color: dodgerblue"
+              >
+                <h6>{{ hotel.hotelName + " - " + hotel.hotelId }}</h6>
+              </div>
+              <div class="col-xs-2 col-md-2" style="display: inline-block">
+                <h6
+                  style="
+                    cursor: pointer;
+                    text-align: center;
+                    padding-bottom: 5px;
+                    width: 20px;
+                    background-color: #0069d9;
+                    color: white;
+                  "
+                  (click)="onDelete(hotel.hotelId)"
+                >
+                  x
+                </h6>
+              </div>
+            </div>
+            <div class="card-body">
+              <!-- Hotel Id: <b>{{ hotel["id"] }}</b><br> -->
+              <!-- Hotel Name:  -->
+              <i>{{ hotel.hotelName }}</i> <br />
+              <!-- Price per night:  -->
+              <h6>
+                Rs. {{ hotel.pricePerNight
+                }}<i style="font-weight: 400"> per night</i>
+              </h6>
+              <h6>
+                {{ hotel.address.city + ", " + hotel.address.country }}
+              </h6>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xs-6 col-md-6" style="margin-bottom: 10px">
+          <div class="card" style="height: 180px">
+            <div class="card-header">
+              <div><h6>Reviews</h6></div>
+            </div>
+            <div class="card-body" style="overflow: auto">
+              <div *ngFor="let review of hotel['reviews']">
+                User Name: <b>{{ review["userName"] }}</b
+                ><br />
+                Rating: <b>{{ review["rating"] }}</b> <br />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
