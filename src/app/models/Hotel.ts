@@ -1,3 +1,5 @@
+import { Review } from './Review';
+
 export class Hotel {
   //always use string (not String)
   hotelId: string;
@@ -21,14 +23,5 @@ class Address {
   constructor() {
     this.city = '';
     this.country = '';
-  }
-}
-
-class Review {
-  userName: string;
-  rating: number;
-  constructor() {
-    this.userName = '';
-    this.rating = 0;
   }
 }

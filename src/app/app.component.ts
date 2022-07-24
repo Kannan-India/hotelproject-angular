@@ -3,14 +3,16 @@ import { HttpClient } from '@angular/common/http';
 import { Configuration } from './configuration';
 import { HotelService } from './services/hotel.service';
 import { Hotel } from './models/hotel';
+import { Review } from './models/Review';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  hotel: Hotel;
+  hotel: Hotel; //Hotel hotel = new Hotel()
   hotels: Hotel[];
+  review: Review;
 
   constructor(
     private httpCLient: HttpClient,
@@ -18,6 +20,7 @@ export class AppComponent implements OnInit {
   ) {
     this.hotel = new Hotel();
     this.hotels = [];
+    this.review = new Review();
   }
 
   ngOnInit(): void {
@@ -26,6 +29,7 @@ export class AppComponent implements OnInit {
 
   reloadData() {
     this.hotel = new Hotel();
+    this.review = new Review();
     this.fetchHotels();
   }
 
@@ -61,9 +65,12 @@ export class AppComponent implements OnInit {
 
   onRegister() {
     if (this.validateHotelData()) {
+      console.log('Checkpoint 1');
+      //asynchronous vs synchronous programming
       this.hotelService.createHotel(this.hotel).subscribe(
         (data) => {
           if (data) {
+            console.log('Checkpoint 3');
             //reload data since new record has been added
             this.reloadData();
           } else {
@@ -76,6 +83,7 @@ export class AppComponent implements OnInit {
           console.log(err);
         }
       );
+      console.log('Checkpoint 2');
     }
   }
 
@@ -113,6 +121,39 @@ export class AppComponent implements OnInit {
         console.log(err);
       }
     );
+  }
+
+  validateReviewData(): boolean {
+    let flag = false;
+    if (this.review.userName == '') {
+      alert('Please enter a valid user name');
+    } else if (this.review.rating == 0) {
+      alert('Please enter a valid rating');
+    } else if (this.review.hotelId == '') {
+      alert('Please enter a valid hotelId');
+    } else {
+      flag = true;
+    }
+    return flag;
+  }
+
+  onReview() {
+    console.log('came to review');
+    if (this.validateReviewData()) {
+      console.log('validated');
+      this.hotelService.createReview(this.review).subscribe(
+        (data) => {
+          if (data) {
+            this.reloadData();
+          } else {
+            alert('Server error');
+          }
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
+    }
   }
 
   /************************
@@ -195,7 +236,7 @@ export class AppComponent implements OnInit {
       });
   }
 
-  onReview() {
+  onReviewOld() {
     //creating review
     const reviewObj = {
       userName: this.userName,

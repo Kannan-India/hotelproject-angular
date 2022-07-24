@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Hotel } from '../models/hotel';
 import { Configuration } from '../configuration';
+import { Review } from '../models/Review';
 
 @Injectable({
   providedIn: 'root',
@@ -25,6 +26,13 @@ export class HotelService {
   deleteHotel(hotelId: string): Observable<boolean> {
     return this.http.delete<boolean>(
       `${Configuration.serverURL}hotels/${hotelId}`
+    );
+  }
+
+  createReview(review: Review): Observable<boolean> {
+    return this.http.post<boolean>(
+      `${Configuration.serverURL}hotels/review`,
+      review
     );
   }
 }
